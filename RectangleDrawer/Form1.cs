@@ -99,16 +99,21 @@ public partial class Form1 : Form
         using var g = canvas.CreateGraphics();
         var hdc = g.GetHdc();
         
-        using var metafile = new Metafile(filePath, hdc, new Rectangle(0, 0, canvas.Width, canvas.Height), MetafileFrameUnit.Pixel, EmfType.EmfPlusDual);
-        g.ReleaseHdc(hdc);
-        
-        using var metaGraphics = Graphics.FromImage(metafile);
-        metaGraphics.Clear(Color.White);
-        
-        using var pen = new Pen(Color.Blue, 2);
-        foreach (var rect in rectangles)
+        try
         {
-            metaGraphics.DrawRectangle(pen, rect);
+            using var metafile = new Metafile(filePath, hdc, new Rectangle(0, 0, canvas.Width, canvas.Height), MetafileFrameUnit.Pixel, EmfType.EmfPlusDual);
+            using var metaGraphics = Graphics.FromImage(metafile);
+            metaGraphics.Clear(Color.White);
+            
+            using var pen = new Pen(Color.Blue, 2);
+            foreach (var rect in rectangles)
+            {
+                metaGraphics.DrawRectangle(pen, rect);
+            }
+        }
+        finally
+        {
+            g.ReleaseHdc(hdc);
         }
     }
 
