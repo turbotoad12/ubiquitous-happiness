@@ -77,7 +77,7 @@ partial class Form1
         btnRectangle.Size = new Size(75, 35);
         btnRectangle.TabIndex = 4;
         btnRectangle.Text = "Rectangle";
-        btnRectangle.BackColor = Color.LightBlue;
+        btnRectangle.UseVisualStyleBackColor = true;
         btnRectangle.Click += BtnRectangle_Click;
 
         // btnLine

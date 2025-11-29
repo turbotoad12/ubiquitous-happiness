@@ -24,6 +24,7 @@ public partial class Form1 : Form
     public Form1()
     {
         InitializeComponent();
+        UpdateToolButtonStyles();
     }
 
     private void Canvas_MouseDown(object? sender, MouseEventArgs e)
@@ -54,44 +55,22 @@ public partial class Form1 : Form
             
             if (currentTool == DrawingTool.Text)
             {
-                // Show input dialog for text
-                using var textDialog = new Form
+                var text = ShowTextInputDialog();
+                if (!string.IsNullOrWhiteSpace(text))
                 {
-                    Text = "Enter Text",
-                    Size = new Size(300, 150),
-                    FormBorderStyle = FormBorderStyle.FixedDialog,
-                    StartPosition = FormStartPosition.CenterParent,
-                    MaximizeBox = false,
-                    MinimizeBox = false
-                };
-                
-                var textBox = new TextBox
-                {
-                    Location = new Point(20, 20),
-                    Size = new Size(240, 25)
-                };
-                
-                var okButton = new Button
-                {
-                    Text = "OK",
-                    DialogResult = DialogResult.OK,
-                    Location = new Point(100, 60),
-                    Size = new Size(80, 30)
-                };
-                
-                textDialog.Controls.Add(textBox);
-                textDialog.Controls.Add(okButton);
-                textDialog.AcceptButton = okButton;
-                
-                if (textDialog.ShowDialog() == DialogResult.OK && !string.IsNullOrWhiteSpace(textBox.Text))
-                {
-                    shapes.Add(new DrawingShape(DrawingTool.Text, startPoint, endPoint, textBox.Text));
+                    shapes.Add(new DrawingShape(DrawingTool.Text, startPoint, endPoint, text));
                 }
+            }
+            else if (currentTool == DrawingTool.Line)
+            {
+                // Lines are always valid
+                shapes.Add(new DrawingShape(currentTool, startPoint, endPoint));
             }
             else
             {
+                // Rectangle and Circle require non-zero dimensions
                 var rect = GetRectangle(startPoint, endPoint);
-                if (rect.Width > 0 || rect.Height > 0 || currentTool == DrawingTool.Line)
+                if (rect.Width > 0 && rect.Height > 0)
                 {
                     shapes.Add(new DrawingShape(currentTool, startPoint, endPoint));
                 }
@@ -100,6 +79,39 @@ public partial class Form1 : Form
             currentRect = Rectangle.Empty;
             canvas.Invalidate();
         }
+    }
+
+    private string? ShowTextInputDialog()
+    {
+        using var textDialog = new Form
+        {
+            Text = "Enter Text",
+            Size = new Size(300, 150),
+            FormBorderStyle = FormBorderStyle.FixedDialog,
+            StartPosition = FormStartPosition.CenterParent,
+            MaximizeBox = false,
+            MinimizeBox = false
+        };
+        
+        var textBox = new TextBox
+        {
+            Location = new Point(20, 20),
+            Size = new Size(240, 25)
+        };
+        
+        var okButton = new Button
+        {
+            Text = "OK",
+            DialogResult = DialogResult.OK,
+            Location = new Point(100, 60),
+            Size = new Size(80, 30)
+        };
+        
+        textDialog.Controls.Add(textBox);
+        textDialog.Controls.Add(okButton);
+        textDialog.AcceptButton = okButton;
+        
+        return textDialog.ShowDialog() == DialogResult.OK ? textBox.Text : null;
     }
 
     private void Canvas_Paint(object? sender, PaintEventArgs e)
