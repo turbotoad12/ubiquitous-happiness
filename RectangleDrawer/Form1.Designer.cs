@@ -33,6 +33,10 @@ partial class Form1
         btnClear = new Button();
         toolPanel = new Panel();
         lblInstructions = new Label();
+        btnRectangle = new Button();
+        btnLine = new Button();
+        btnCircle = new Button();
+        btnText = new Button();
         toolPanel.SuspendLayout();
         SuspendLayout();
 
@@ -67,10 +71,50 @@ partial class Form1
         btnClear.UseVisualStyleBackColor = true;
         btnClear.Click += BtnClear_Click;
 
+        // btnRectangle
+        btnRectangle.Location = new Point(210, 12);
+        btnRectangle.Name = "btnRectangle";
+        btnRectangle.Size = new Size(75, 35);
+        btnRectangle.TabIndex = 4;
+        btnRectangle.Text = "Rectangle";
+        btnRectangle.BackColor = Color.LightBlue;
+        btnRectangle.Click += BtnRectangle_Click;
+
+        // btnLine
+        btnLine.Location = new Point(291, 12);
+        btnLine.Name = "btnLine";
+        btnLine.Size = new Size(75, 35);
+        btnLine.TabIndex = 5;
+        btnLine.Text = "Line";
+        btnLine.UseVisualStyleBackColor = true;
+        btnLine.Click += BtnLine_Click;
+
+        // btnCircle
+        btnCircle.Location = new Point(372, 12);
+        btnCircle.Name = "btnCircle";
+        btnCircle.Size = new Size(75, 35);
+        btnCircle.TabIndex = 6;
+        btnCircle.Text = "Circle";
+        btnCircle.UseVisualStyleBackColor = true;
+        btnCircle.Click += BtnCircle_Click;
+
+        // btnText
+        btnText.Location = new Point(453, 12);
+        btnText.Name = "btnText";
+        btnText.Size = new Size(75, 35);
+        btnText.TabIndex = 7;
+        btnText.Text = "Text";
+        btnText.UseVisualStyleBackColor = true;
+        btnText.Click += BtnText_Click;
+
         // toolPanel
         toolPanel.Controls.Add(lblInstructions);
         toolPanel.Controls.Add(btnExportEmf);
         toolPanel.Controls.Add(btnClear);
+        toolPanel.Controls.Add(btnRectangle);
+        toolPanel.Controls.Add(btnLine);
+        toolPanel.Controls.Add(btnCircle);
+        toolPanel.Controls.Add(btnText);
         toolPanel.Dock = DockStyle.Top;
         toolPanel.Location = new Point(0, 0);
         toolPanel.Name = "toolPanel";
@@ -79,21 +123,21 @@ partial class Form1
 
         // lblInstructions
         lblInstructions.AutoSize = true;
-        lblInstructions.Location = new Point(210, 20);
+        lblInstructions.Location = new Point(540, 20);
         lblInstructions.Name = "lblInstructions";
         lblInstructions.Size = new Size(300, 15);
         lblInstructions.TabIndex = 3;
-        lblInstructions.Text = "Click and drag on the canvas to draw rectangles";
+        lblInstructions.Text = "Click and drag to draw a rectangle";
 
         // Form1
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(800, 450);
+        ClientSize = new Size(900, 500);
         Controls.Add(canvas);
         Controls.Add(toolPanel);
-        MinimumSize = new Size(400, 300);
+        MinimumSize = new Size(600, 400);
         Name = "Form1";
-        Text = "Rectangle Drawer - EMF Exporter";
+        Text = "Shape Drawer - EMF Exporter";
         toolPanel.ResumeLayout(false);
         toolPanel.PerformLayout();
         ResumeLayout(false);
@@ -106,4 +150,8 @@ partial class Form1
     private Button btnClear;
     private Panel toolPanel;
     private Label lblInstructions;
+    private Button btnRectangle;
+    private Button btnLine;
+    private Button btnCircle;
+    private Button btnText;
 }
